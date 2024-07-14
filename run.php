@@ -8,15 +8,13 @@ $mail = new \JVelletti\Mailsend\MailSender ;
 
 $subject = '[TEST] - Does mailbox work';
 $body = 'Can be deleted safely';
-
-if ( ! file_exists('config.json')) {
-    $defaultToMail = false ;
-    if (isset($argv[1])) {
-        if (filter_var($argv[1], FILTER_VALIDATE_EMAIL)) {
-            $defaultToMail = $argv[1];
-        }
+$defaultToMail = false ;
+if (isset($argv[1])) {
+    if (filter_var($argv[1], FILTER_VALIDATE_EMAIL)) {
+        $defaultToMail = $argv[1];
     }
-
+}
+if ( ! file_exists('config.json')) {
     $config['csvFile'] = __DIR__ . "/receiverlist.csv" ;
     $config['to'] = $defaultToMail ? $defaultToMail : "your@test.xx" ;
     $config['subject'] = "[DF-Mail] keep inbox alive Test " ;
@@ -35,7 +33,11 @@ if ( ! file_exists('config.json')) {
 
 } else {
     $config = json_decode ( file_get_contents( 'config.json' ) , true ) ;
+    if ( $defaultToMail ) {
+        $config['to'] = $defaultToMail ;
+    }
 }
+
 
 if ( isset( $config['csvFile'] ) && isset( $config['to'] )  && isset( $config['subject'] )  && isset( $config['body'] )  ) {
     $mail->sendEmailsFromCSV( $config ) ;

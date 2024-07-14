@@ -1,12 +1,15 @@
-installation  
-###############
+Installation  
+============
+clone this repository not inside of default folder "/webseiten" of domain factory.  
+f.e. use: df-keep-mailbox
 
-    git clone 
+    cd ~
+    git clone git@github.com:velletti/df-keep-mailbox.git df-keep-mailbox --branch main
     composer install --no-dev
 
 
-configuration
-###############
+Configuration:
+==============
 
 start tool once with the email address that should receive all mails:
 
@@ -32,7 +35,19 @@ if TO is a valid Email Address, this script will create an example file named: '
 
 
 adjust the second line. the Char: '"' in passwords has to be masked with a slash ( '\' ) sign. 
-add as much lines as you want; But maybe it is a good idea, to test it first with one line.
+Add as much lines as you want; But maybe it is a good idea, to test it first with one line.
+
+
+Hints:
+======
+
+set up a cron job that calls this php script once a week with 
+
+    /usr/bin/php81 -c /etc/opt/remi/php81/php.ini /kunden/client_contract/df-keep-mailbox/run.php
+
+Or adjust config.json to read receiver.csv from a file from outside of your web root
+or add a .htaccess and a .htpasswd file to protect this folder 
+    
 
 
 
