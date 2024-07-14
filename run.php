@@ -9,17 +9,32 @@ $mail = new \JVelletti\Mailsend\MailSender ;
 $subject = '[TEST] - Does mailbox work';
 $body = 'Can be deleted safely';
 
-if ( ! file_exists('config.ini')) {
+if ( ! file_exists('config.json')) {
+    $defaultToMail = false ;
+    if (isset($argv[1])) {
+        if (filter_var($argv[1], FILTER_VALIDATE_EMAIL)) {
+            $defaultToMail = $argv[1];
+        }
+    }
+
     $config['csvFile'] = __DIR__ . "/receiverlist.csv" ;
-    $config['to'] = "your@ttest.xx" ;
+    $config['to'] = $defaultToMail ? $defaultToMail : "your@test.xx" ;
     $config['subject'] = "[DF-Mail] keep inbox alive Test " ;
     $config['body'] = "Mail can be  deleted safely" ;
     $config['debug'] = false ;
-    file_put_contents( 'config.ini' , json_encode( $config )) ;
-    echo "\n created config.ini. Adjust at least the \"to\" address to your needs, before we can start!" ;
-    die;
+    file_put_contents( 'config.json' , json_encode( $config , JSON_PRETTY_PRINT)) ;
+
+    echo "\n created config.json. " ;
+    if (  $config['to'] == "your@test.xx" ) {
+        echo "\n \n Adjust at least the \"to\" address to your needs, before we can start!" ;
+        echo "\n \n ";
+        echo json_encode( $config , JSON_PRETTY_PRINT)   ;
+        echo "\n \n ";
+        die;
+    }
+
 } else {
-    $config = json_decode ( file_get_contents( 'config.ini' ) , true ) ;
+    $config = json_decode ( file_get_contents( 'config.json' ) , true ) ;
 }
 
 if ( isset( $config['csvFile'] ) && isset( $config['to'] )  && isset( $config['subject'] )  && isset( $config['body'] )  ) {

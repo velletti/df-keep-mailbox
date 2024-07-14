@@ -1,6 +1,6 @@
 {
     "name": "jvelletti/mailsend",
-    "description": "sent auto mails",
+    "description": "Sent auto mails via cron job to keep a rare used mailbox alive. DomainFactory / goDaddy will delete (unused) mailboxes.",
     "type": "project",
     "autoload": {
         "psr-4": {
@@ -8,6 +8,7 @@
         }
     },
     "require": {
-        "phpmailer/phpmailer": "^6.9"
+        "phpmailer/phpmailer": "^6.9",
+        "ext-openssl": "*"
     }
 }
