@@ -1,0 +1,13 @@
+{
+    "name": "jvelletti/mailsend",
+    "description": "sent auto mails",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "JVelletti\\Mailsend\\": "src/"
+        }
+    },
+    "require": {
+        "phpmailer/phpmailer": "^6.9"
+    }
+}
