@@ -37,6 +37,8 @@ if TO is a valid Email Address, this script will create an example file named: '
 adjust the second line. the Char: '"' in passwords has to be masked with a slash ( '\' ) sign. 
 Add as much lines as you want; But maybe it is a good idea, to test it first with one line.
 
+Empty lines and lines starting with "#" are ignored for better testing
+
 
 Hints:
 ======
